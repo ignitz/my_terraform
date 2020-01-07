@@ -30,3 +30,6 @@ override.tf.json
 
 # Sensitive files
 keys/
+
+# AWS credentials
+credentials.sh
