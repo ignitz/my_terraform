@@ -33,3 +33,6 @@ keys/
 
 # AWS credentials
 credentials.sh
+
+# macOS shit
+.DS_Store
