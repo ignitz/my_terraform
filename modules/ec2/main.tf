@@ -1,3 +1,5 @@
+# aws ec2 modify-instance-attribute --instance-id <your-instance-id> --user-data ":"
+
 resource "aws_instance" "mymachine" {
   ami           = data.aws_ami.latest-ubuntu.id
   instance_type = "t2.micro"
@@ -8,7 +10,7 @@ resource "aws_instance" "mymachine" {
 
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.allow_mymachine.id]
-  user_data              = data.template_file.user_data
+  user_data              = data.template_file.user_data.rendered
 
   subnet_id = var.subnet_id
 }
@@ -96,6 +98,9 @@ data "template_file" "user_data" {
   vars = {
     HOME                = "/home/ubuntu"
     ANACONDA            = "https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh"
-    CODESERVER_PASSWORD = "mypassword"
+    CODESERVER_PASSWORD = var.codeserver_password
+    PORTAINER_USERNAME  = var.portainer_username
+    PORTAINER_PASSWORD  = var.portainer_password
+    JUPYTER_PASSWORD    = var.jupyter_password
   }
 }

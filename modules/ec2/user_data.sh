@@ -63,7 +63,7 @@ WantedBy=default.target
 EOT
 
 systemctl enable codeserver
-systemctl start codeserver
+# systemctl start codeserver
 
 # Anaconda
 su - ubuntu -c "(cd ${HOME} && curl -o Anaconda.sh ${ANACONDA} && chmod +x Anaconda.sh)"
@@ -76,7 +76,7 @@ chown -R ubuntu:ubuntu ${HOME}/notebooks
 tee -a ${HOME}/autostart/jupyter.sh > /dev/null <<EOT
 #!/bin/bash
 source ${HOME}/anaconda/bin/activate
-jupyter lab --NotebookApp.token='' --NotebookApp.ip='*' --NotebookApp.base_url=/ --NotebookApp.notebook_dir=${HOME}/notebooks
+jupyter lab --NotebookApp.token='' --NotebookApp.ip='*' --NotebookApp.base_url=/ --NotebookApp.notebook_dir=${HOME}/notebooks --NotebookApp.password="$(python3 -c "from notebook.auth import passwd; print(passwd('${JUPYTER_PASSWORD}'))")"
 EOT
 chmod +x ${HOME}/autostart/jupyter.sh
 
@@ -99,7 +99,7 @@ WantedBy=default.target
 EOT
 
 systemctl enable jupyter
-systemctl start jupyter
+# systemctl start jupyter
 
 # Install Docker
 apt install -y \
@@ -122,7 +122,7 @@ usermod -aG docker ubuntu
 # Install Portainer
 apt install -y apache2-utils
 docker volume create portainer_data
-docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --name portainer --admin-password="$(htpasswd -nbB admin password | cut -d ":" -f 2)" -v portainer_data:/data portainer/portainer
+docker run -d -p 8000:8000 -p 9000:9000 --restart always -v /var/run/docker.sock:/var/run/docker.sock --name portainer -v portainer_data:/data portainer/portainer --admin-password="$(htpasswd -nbB ${PORTAINER_USERNAME} ${PORTAINER_PASSWORD} | cut -d ":" -f 2)"
 
 # Reboot 
 reboot

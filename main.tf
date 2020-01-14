@@ -1,9 +1,13 @@
 module "instances" {
   source = "./modules/ec2"
 
-  vpc_id    = module.vpc.vpc_id
-  key_name  = module.key_pair.key_name
-  subnet_id = module.vpc.subnet_public
+  vpc_id              = module.vpc.vpc_id
+  key_name            = module.key_pair.key_name
+  subnet_id           = module.vpc.subnet_public
+  codeserver_password = random_password.password.result
+  portainer_username  = "admin"
+  portainer_password  = random_password.password.result
+  jupyter_password    = random_password.password.result
 }
 
 module "key_pair" {
@@ -14,4 +18,10 @@ module "key_pair" {
 
 module "vpc" {
   source = "./network/"
+}
+
+resource "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "_%@"
 }

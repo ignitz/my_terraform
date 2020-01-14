@@ -10,3 +10,10 @@
 variable "vpc_id" { type = string }
 variable "key_name" { type = string }
 variable "subnet_id" { type = string }
+variable "codeserver_password" { type = string }
+variable "portainer_username" {
+  type    = string
+  default = "admin"
+}
+variable "portainer_password" { type = string }
+variable "jupyter_password" { type = string }
