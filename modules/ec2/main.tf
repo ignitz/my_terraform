@@ -2,7 +2,7 @@
 
 resource "aws_instance" "mymachine" {
   ami           = data.aws_ami.latest-ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = "t3.large"
 
   tags = {
     Name = "Yuri Niitsuma Instance"

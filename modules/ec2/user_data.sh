@@ -76,7 +76,7 @@ chown -R ubuntu:ubuntu ${HOME}/notebooks
 tee -a ${HOME}/autostart/jupyter.sh > /dev/null <<EOT
 #!/bin/bash
 source ${HOME}/anaconda/bin/activate
-jupyter lab --NotebookApp.token='' --NotebookApp.ip='*' --NotebookApp.base_url=/ --NotebookApp.notebook_dir=${HOME}/notebooks --NotebookApp.password="$(python3 -c "from notebook.auth import passwd; print(passwd('${JUPYTER_PASSWORD}'))")"
+jupyter lab --NotebookApp.token='' --NotebookApp.ip='*' --NotebookApp.base_url=/ --NotebookApp.notebook_dir=${HOME}/notebooks --NotebookApp.password="$(source /home/bin/activate && python3 -c "from notebook.auth import passwd; print(passwd('${JUPYTER_PASSWORD}'))")"
 EOT
 chmod +x ${HOME}/autostart/jupyter.sh
 

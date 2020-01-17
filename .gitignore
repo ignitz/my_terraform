@@ -36,3 +36,6 @@ credentials.sh
 
 # macOS shit
 .DS_Store
+
+# 
+infra.json

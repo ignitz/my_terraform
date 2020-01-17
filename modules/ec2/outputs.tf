@@ -7,3 +7,6 @@ output "ec2_instance_id" {
   description = "ID of created machine."
 }
 
+# output "ec2_user_data" {
+#   value = data.template_file.user_data
+# }
