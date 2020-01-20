@@ -1,6 +1,7 @@
 module "instances" {
   source = "./modules/ec2"
 
+  instance_name       = var.instance_name
   vpc_id              = module.vpc.vpc_id
   key_name            = module.key_pair.key_name
   subnet_id           = module.vpc.subnet_public

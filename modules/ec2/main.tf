@@ -5,7 +5,7 @@ resource "aws_instance" "mymachine" {
   instance_type = "t3.large"
 
   tags = {
-    Name = "Yuri Niitsuma Instance"
+    Name = var.instance_name
   }
 
   key_name               = var.key_name
