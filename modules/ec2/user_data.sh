@@ -119,6 +119,11 @@ apt update
 apt install -y docker-ce docker-ce-cli containerd.io
 usermod -aG docker ubuntu
 
+# Install Docker-Compose
+curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
 # Install Portainer
 apt install -y apache2-utils
 docker volume create portainer_data
