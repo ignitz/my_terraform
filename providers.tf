@@ -6,7 +6,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "datasprints"
-    key    = "yuriniitsuma/terraform.tfstate"
+    key    = "yuriniitsuma/danilo/terraform.tfstate"
     region = "us-east-1"
   }
 }

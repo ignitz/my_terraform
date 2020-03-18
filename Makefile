@@ -8,7 +8,7 @@ endif
 	terraform output -json > infra.json
 
 ssh:
-	@ssh -i modules/key_pair/keys/id_rsa ubuntu@$(shell cat infra.json | jq .public_address.value)
+	@ssh -i modules/key_pair/keys/id_rsa ubuntu@$(shell cat infra.json | jq .nginx.public_address.value)
 
 clean:
 	@terraform destroy -auto-approve && rm infra.json
